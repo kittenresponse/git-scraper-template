@@ -1,0 +1,20 @@
+name: X Search CLI Smoke Test
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install twscrape
+        run: python -m pip install --disable-pip-version-check twscrape
+      - name: Verify CLI and Python import
+        run: |
+          twscrape --help
+          python -c "import twscrape; print('twscrape import OK')"
